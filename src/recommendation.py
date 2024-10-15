@@ -1,7 +1,16 @@
-def generate_recommendation(student):
-    recommendations = {
-        "Visual": "Use mind maps, diagrams, and videos.",
-        "Auditory": "Listen to podcasts, record notes, and participate in discussions.",
-        "Kinesthetic": "Use hands-on activities, experiments, and role-playing."
+def generate_recommendation(learning_style, performance):
+    # Learning style recommendations
+    style_recommendations = {
+        "Visual": "Use visual aids like diagrams, charts, and videos.",
+        "Auditory": "Listen to lectures, podcasts, and engage in discussions.",
+        "Kinesthetic": "Engage in hands-on activities, experiments, and practical examples."
     }
-    return recommendations.get(student.learning_style, "General study advice.")
+    
+    weak_subjects = [subject for subject, score in performance.items() if score < 60]
+    if weak_subjects:
+        advice = f"Focus on improving your performance in {', '.join(weak_subjects)}."
+    else:
+        advice = "Great work! Keep maintaining balanced progress."
+
+    # Return combined recommendation
+    return f"{style_recommendations.get(learning_style, 'Balanced study methods')}\n{advice}"

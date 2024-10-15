@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Your Study Plan</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Study Plan for {{ name }}</h1>
+        <h2>Recommendations</h2>
+        <p>{{ recommendation }}</p>
+
+        <h2>Your Study Schedule</h2>
+        <ul class="list-group">
+            {% for session in schedule %}
+                <li class="list-group-item">
+                    {{ session }}
+                </li>
+            {% endfor %}
+        </ul>
+
+        <a href="/" class="btn btn-secondary mt-4">Create Another Plan</a>
+    </div>
+</body>
+</html>
+

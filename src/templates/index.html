@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Personalized Study Plan Generator</title>
+    <script>
+        let subjectCount = 1; // Initialize the subject count
+        function addSubject() {
+            subjectCount++;
+            const container = document.getElementById('subjects-container');
+            const newSubject = `
+                <div class="form-group">
+                    <label for="subject_${subjectCount}">Subject:</label>
+                    <input type="text" class="form-control" id="subject_${subjectCount}" name="subjects" placeholder="Enter subject name" required>
+                    <label for="study_time_${subjectCount}">Study Time (hours):</label>
+                    <input type="number" class="form-control" id="study_time_${subjectCount}" name="study_times" min="1" required>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', newSubject);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Personalized Study Plan Generator</h1>
+        <form action="/generate_plan" method="post" class="mt-4">
+            <div class="form-group">
+                <label for="name">Your Name:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+        
+            <div class="form-group">
+                <label for="learning_style">Learning Style:</label>
+                <select class="form-control" id="learning_style" name="learning_style" required>
+                    <option value="">Select...</option>
+                    <option value="visual">Visual</option>
+                    <option value="auditory">Auditory</option>
+                    <option value="kinesthetic">Kinesthetic</option>
+                </select>
+            </div>
+        
+            <div class="form-group">
+                <label for="math">Math Performance (1-100):</label>
+                <input type="number" class="form-control" id="math" name="math" min="1" max="100" required>
+            </div>
+        
+            <div class="form-group">
+                <label for="science">Science Performance (1-100):</label>
+                <input type="number" class="form-control" id="science" name="science" min="1" max="100" required>
+            </div>
+        
+            <div class="form-group">
+                <label for="history">History Performance (1-100):</label>
+                <input type="number" class="form-control" id="history" name="history" min="1" max="100" required>
+            </div>
+
+            <div id="subjects-container">
+                <div class="form-group">
+                    <label for="subject_1">Subject:</label>
+                    <input type="text" class="form-control" id="subject_1" name="subjects" placeholder="Enter subject name" required>
+                    <label for="study_time_1">Study Time (hours):</label>
+                    <input type="number" class="form-control" id="study_time_1" name="study_times" min="1" required>
+                </div>
+            </div>
+
+            <button type="button" id="add-subject" class="btn btn-secondary" onclick="addSubject()">Add Another Subject</button>
+
+            <div class="form-group mt-3">
+                <button type="submit" class="btn btn-primary">Generate Study Plan</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

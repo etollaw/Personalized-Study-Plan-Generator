@@ -1,4 +1,6 @@
-def optimize_learning_path(student):
-    if student.performance['math'] < 60:
-        return "Focus more on math. Recommended: 2 hours daily with extra practice."
-    return "Balanced study schedule."
+def optimize_study_schedule(subjects, study_times, performance):
+    schedule = []
+    for subject, time in zip(subjects, study_times):
+        # Basic logic for generating a study plan
+        schedule.append(f"Study {subject} for {time} hours.")
+    return schedule

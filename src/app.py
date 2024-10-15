@@ -1,17 +1,34 @@
+from flask import Flask, render_template, request
 from recommendation import generate_recommendation
-from ai_optimizer import optimize_learning_path
+from ai_optimizer import optimize_study_schedule
 
+app = Flask(__name__)
 
-class Student:
-    def __init__(self, name, learning_style, performance):
-        self.name = name
-        self.learning_style = learning_style
-        self.performance = performance  # e.g., {"math": 85, "science": 75}
+@app.route('/')
+def home():
+    return render_template('index.html')
 
-    def __repr__(self):
-        return f"Student({self.name}, {self.learning_style}, {self.performance})"
+@app.route('/generate_plan', methods=['POST'])
+def generate_plan():
+    name = request.form['name']
+    learning_style = request.form['learning_style']
+    
+    # Get performance metrics
+    performance = {
+        'math': int(request.form['math']),
+        'science': int(request.form['science']),
+        'history': int(request.form['history']),
+    }
 
-student1 = Student("Alex", "Visual", {"math": 50, "science": 80})
+    # Get subjects and their study times
+    subjects = request.form.getlist('subjects')
+    study_times = request.form.getlist('study_times')
 
-print(f"Recommendations: {generate_recommendation(student1)}")
-print(f"Learning Path Optimization: {optimize_learning_path(student1)}")
+    # Generate recommendations and optimized schedule
+    recommendation = generate_recommendation(learning_style, performance)
+    schedule = optimize_study_schedule(subjects, study_times, performance)
+
+    return render_template('plan.html', name=name, recommendation=recommendation, schedule=schedule)
+
+if __name__ == '__main__':
+    app.run(debug=True)
